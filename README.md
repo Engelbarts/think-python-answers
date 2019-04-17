@@ -1,5 +1,5 @@
 # think_python
-My answers to Think Python 2nd Edition excersised
+My answers to Think Python 2nd Edition excersises
 
 
 ## Exercise 1.1  
