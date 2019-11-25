@@ -1,7 +1,3 @@
-# think_python
-My answers to Think Python 2nd Edition excersises
-
-
 ## Exercise 1.1  
 It is a good idea to read this book in front of a computer so you can try out the examples as you go.
 
@@ -44,13 +40,92 @@ Repeating my advice from the previous chapter, whenever you learn a new feature,
 Practice using the Python interpreter as a calculator:
 
 * The volume of a sphere with radius r is $4/3 π r3$. What is the volume of a sphere with radius 5?
+
+
+```python
+# Volume of a sphere with radius 5
+pi = 3.14159
+4/3 * pi * 5 ** 3
+```
+
+
+
+
+    523.5983333333332
+
+
+
+
+```python
+# Using pi from the math library
+from math import pi
+print(pi)
+4/3 * pi * 5 ** 3
+```
+
+    3.141592653589793
+
+
+
+
+
+    523.5987755982989
+
+
+
 * Suppose the cover price of a book is \\$24.95, but bookstores get a 40% discount. Shipping costs \\$3 for the first copy and 75 cents for each additional copy. What is the total wholesale cost for 60 copies?
+
+
+```python
+book_price=24.95
+
+# Discount = 40% = (100-40)/100
+discounted_price=book_price*(100-40)/100
+
+# Price for 60 books
+sixty_books=60*discounted_price
+
+# Shipping, $3 for the first, $0,75 for each next book
+shipping=3+59*.75
+
+total=sixty_books+shipping
+print(total)
+```
+
+    945.45
+
+
 * If I leave my house at 6:52 am and run 1 mile at an easy pace (8:15 per mile), then 3 miles at tempo (7:12 per mile) and 1 mile at easy pace again, what time do I get home for breakfast?
 
 
 ```python
-# TODO
+# starttime is 6:52 am, 6 hours and 52 minutes
+hours = 6
+minutes = 52
+seconds = 0
+# Add 8 minutes and 15 seconds
+minutes = minutes + 8
+seconds = seconds + 15
+# Minutes is now 60 minutes, add 1 hour
+hours = hours + 1
+# And make minutes 0
+minutes = 0
+# Add three miles at 7 minutes, 12 seconds per mile
+minutes = minutes + 3 * 7
+seconds = seconds + 3 * 12
+# One more mile at 8 minutes, 15 seconds
+minutes = minutes + 8
+seconds = seconds + 12
+# Seconds is now > 60, add one minute and substract 60 seconds
+minutes = minutes + 1
+seconds = seconds - 60
+# Back home at 7:30 am
+print(hours, minutes, seconds)
+
 ```
+
+    7 30 3
+
 
 ## Exercise 3.1  
 Write a function named right_justify that takes a string named s as a parameter and prints the string with enough leading spaces so that the last letter of the string is in column 70 of the display.
@@ -67,6 +142,17 @@ def right_justify(word):
     nr_spaces = 70 - len(word)
     print(' ' * (nr_spaces - 1), word) # print adds a delimter ' '
 ```
+
+
+```python
+# Print the right justified word with marks to indicate position.
+right_justify('pipo')
+print('    .    |' * 8)
+```
+
+                                                                      pipo
+        .    |    .    |    .    |    .    |    .    |    .    |    .    |    .    |
+
 
 ## Exercise 3.2  
 A function object is a value you can assign to a variable or pass as an argument. For example, do_twice is a function that takes a function object as an argument and calls it twice:
@@ -90,29 +176,57 @@ do_twice(print_spam)
 
 
 ```python
-# TODO
+def do_twice(f):
+    f()
+    f()
+
+def print_spam():
+    print('spam')
+
+do_twice(print_spam)
 ```
+
+    spam
+    spam
+
 
 * Modify do_twice so that it takes two arguments, a function object and a value, and calls the function twice, passing the value as an argument.
 
 
 ```python
-# TODO
+def do_twice(fun, val):
+    fun(val)
+    fun(val)
+
+do_twice(print, 'pipo')
+
 ```
+
+    pipo
+    pipo
+
 
 * Copy the definition of print_twice from earlier in this chapter to your script.
 
 
 ```python
-# TODO
+def print_twice(arg):
+    print(arg)
+    print(arg)
 ```
 
 * Use the modified version of do_twice to call print_twice twice, passing 'spam' as an argument.
 
 
 ```python
-# TODO
+do_twice(print_twice, 'spam')
 ```
+
+    spam
+    spam
+    spam
+    spam
+
 
 * Define a new function called do_four that takes a function object and a value and calls the function four times, passing the value as a parameter. There should be only two statements in the body of this function, not four.
 
@@ -120,8 +234,18 @@ Solution: http://thinkpython2.com/code/do_four.py.
 
 
 ```python
-# TODO
+def do_four(f, arg):
+    do_twice(f, arg)
+    do_twice(f, arg)
+
+do_four(print, 'spam')
 ```
+
+    spam
+    spam
+    spam
+    spam
+
 
 ## Exercise 3.3  
 Note: This exercise should be done using only the statements and other features we have learned so far.
@@ -160,8 +284,55 @@ Solution: http://thinkpython2.com/code/grid.py. Credit: This exercise is based o
 
 
 ```python
-# TODO
+def do_twice(fun):
+    fun()
+    fun()
+
+def do_four(fun):
+    do_twice(fun)
+    do_twice(fun)
+
+def print_hor():
+    print('+ - - - - ', end='')
+
+def print_ver():
+    print('|         ', end='')
+
+def print_beam():
+    do_twice(print_hor)
+    print('+')
+
+def print_posts():
+    do_twice(print_ver)
+    print('|')
+
+def print_row():
+    print_beam()
+    do_four(print_posts)
+
+def print_grid():
+    do_twice(print_row)
+    print_beam()
+    
 ```
+
+
+```python
+print_grid()
+```
+
+    + - - - - + - - - - +
+    |         |         |
+    |         |         |
+    |         |         |
+    |         |         |
+    + - - - - + - - - - +
+    |         |         |
+    |         |         |
+    |         |         |
+    |         |         |
+    + - - - - + - - - - +
+
 
 ## Casestudy Chapter 4
 
@@ -211,25 +382,65 @@ def check_fermat(a, b, c, n):
 
 
 ```python
-check_fermat(3, 4, 5, 3)
+check_fermat(3, 4, 5, 2)
 ```
+
+    n must be greater than 2
+
 
 Write a function that prompts the user to input values for a, b, c and n, converts them to integers, and uses check_fermat to check whether they violate Fermat’s theorem.
 
 
 ```python
-while True:
-    a = input('a: ')
-    a = int(a)
-    b = input('b: ')
-    b = int(b)
-    c = input('c: ')
-    c = int(c)
-    n = input('n: ')
-    n = int(n)
-    check_fermat(a, b, c, n)
-
+def get_input():
+    while True:
+        a = input('a: ')
+        a = int(a)
+        b = input('b: ')
+        b = int(b)
+        c = input('c: ')
+        c = int(c)
+        n = input('n: ')
+        n = int(n)
+        check_fermat(a, b, c, n)
 ```
+
+
+```python
+get_input()
+```
+
+    a:  2
+    b:  3
+    c:  4
+    n:  5
+
+
+    No. That does not work.
+
+
+    a:  
+
+
+
+    ---------------------------------------------------------------------------
+
+    ValueError                                Traceback (most recent call last)
+
+    <ipython-input-192-7a12e05f1477> in <module>
+    ----> 1 get_input()
+    
+
+    <ipython-input-191-413fa8af80f8> in get_input()
+          2     while True:
+          3         a = input('a: ')
+    ----> 4         a = int(a)
+          5         b = input('b: ')
+          6         b = int(b)
+
+
+    ValueError: invalid literal for int() with base 10: ''
+
 
 ## Exercise 5.3
 
@@ -263,8 +474,11 @@ def is_triangle(a, b, c):
 
 
 ```python
-is_triangle(1, 3, 5)
+is_triangle(3, 3, 6)
 ```
+
+    Yes.
+
 
 Write a function that prompts the user to input three stick lengths, converts them to integers, and uses is_triangle to check whether sticks with the given lengths can form a triangle.
 
@@ -289,7 +503,12 @@ recurse(3, 0)
 
 
 ```python
-# TODO
+# recurse(3, 0)
+# 1. n = 3, s = 0
+# 2. n = 2, s = 3
+# 3. n = 1, s = 5
+# 4. n = 0, s = 6
+# prints 6
 ```
 
 What would happen if you called this function like this:
@@ -298,12 +517,22 @@ What would happen if you called this function like this:
 recurse(-1, 0)?
 </pre>
 
+answer;<br />
+n will never become 0, maximum recursion depth
+
 Write a docstring that explains everything someone would need to know in order to use this function (and nothing else).
 
 
 ```python
-# TODO
+"""Recursively calls self until n is 0, decreasing n by 1 and increasing s by n in every call. Prints s when n reaches 0."""
 ```
+
+
+
+
+    'Recursively calls self until n is 0, decreasing n by 1 and increasing s by n in every call. Prints s when n reaches 0.'
+
+
 
 The following exercises use the turtle module, described in Chapter 4:
 
@@ -348,7 +577,7 @@ The Koch curve can be generalized in several ways. See http://en.wikipedia.org/w
 
 
 ```python
-TODO
+# cannot use turtle in this environment.
 ```
 
 ## Exercise 6.1  
@@ -440,6 +669,7 @@ def middle(word):
 
 ```python
 def is_palindrome(word):
+    print(word)
     if len(word) > 2:                           # If "word" has more than two characters
         if not is_palindrome(middle(word)):     # Recursively call is_palindrome for word
                                                 # minus the first and the last character 
@@ -461,13 +691,40 @@ def is_palindrome2(word):
 
 
 ```python
-is_palindrome('palindrome')
+def is_palindrome3(word):
+    print(word)
+    if len(word) <= 1:
+        return True
+    if first(word) != last(word):
+        return False
+    return is_palindrome3(middle(word))
 ```
 
 
 ```python
-is_palindrome('redivider')
+def is_palindrome4(word):
+    """Sneak preview of string slicing and dicing"""
+    return word == word[::-1]
 ```
+
+
+```python
+is_palindrome3('redivider')
+```
+
+    redivider
+    edivide
+    divid
+    ivi
+    v
+
+
+
+
+
+    True
+
+
 
 ## Exercise 6.4  
 A number, a, is a power of b if it is divisible by b and a/b is a power of b. Write a function called is_power that takes parameters a and b and returns True if a is a power of b. Note: you will have to think about the base case.
@@ -488,8 +745,30 @@ Credit: This exercise is based on an example from Abelson and Sussman’s Struct
 
 
 ```python
-# TODO
+# There are some "hidden" clues in this exercise,
+# gcd(a, b) == gcd(b, r) which means gcd(a, b) == gcd(b, a % b)
+# so we could do a recursive call BUT then we'll get a divide by 0 
+# error. Which is where the base case comes in, gcd(a, 0) = a
+# So if b = 0 we can just return a.
+# That makes for a very short and simple function.
+def gcd(a, b):
+    #a, b = sorted((a, b), reverse=True)
+    if b == 0:
+        return a
+    return gcd(b, a % b)
 ```
+
+
+```python
+gcd(978, 89798763754892653453379597352537489494736)
+```
+
+
+
+
+    6
+
+
 
 ## Exercise 7.1  
 Copy the loop from Section 7.5 and encapsulate it in a function called mysqrt that takes a as a parameter, chooses a reasonable value of x, and returns an estimate of the square root of a.
@@ -515,20 +794,6 @@ The first column is a number, a; the second column is the square root of a compu
 # TODO
 ```
 
-Exercise 2  
-The built-in function eval takes a string and evaluates it using the Python interpreter. For example:
-
->>> eval('1 + 2 * 3')
-7
->>> import math
->>> eval('math.sqrt(5)')
-2.2360679774997898
->>> eval('type(math.pi)')
-<class 'float'>
-Write a function called eval_loop that iteratively prompts the user, takes the resulting input and evaluates it using eval, and prints the result.
-
-It should continue until the user enters 'done', and then return the value of the last expression it evaluated.
-
 
 ## Exercise 7.2  
 The built-in function eval takes a string and evaluates it using the Python interpreter. For example:
@@ -540,7 +805,7 @@ The built-in function eval takes a string and evaluates it using the Python inte
 >>> eval('math.sqrt(5)')
 2.2360679774997898
 >>> eval('type(math.pi)')
-<class 'float'>
+&lt;class 'float'>
 </pre>
 Write a function called eval_loop that iteratively prompts the user, takes the resulting input and evaluates it using eval, and prints the result. It should continue until the user enters 'done', and then return the value of the last expression it evaluated.
 
@@ -551,8 +816,7 @@ def eval_loop():
     while True:
         cmd = input('> ')
         if cmd == 'done':         # If command is 'done' 
-            print(value)          # Print last return value
-            break                 # break loop
+            return value          # Return last return value
         value = eval(cmd)         # evaluate command and save returned value
 ```
 
@@ -560,6 +824,19 @@ def eval_loop():
 ```python
 eval_loop()
 ```
+
+    >  1 + 1
+    >  2 + 1
+    >  3 + 1
+    >  done
+
+
+
+
+
+    4
+
+
 
 ## Exercise 7.3  
 The mathematician Srinivasa Ramanujan found an infinite series that can be used to generate a numerical approximation of 1 / π:
@@ -610,7 +887,7 @@ def any_lowercase1(s):
             return False
 </pre>
 
-TODO
+WRONG: This function returns True or False for the first letter, none of the other. If the string is empty it will return None.
 
 <pre>
 def any_lowercase2(s):
@@ -621,7 +898,7 @@ def any_lowercase2(s):
             return 'False'
 </pre>
 
-TODO
+WRONG: This function always returns True, the string 'c' is lowercase.
 
 <pre>
 def any_lowercase3(s):
@@ -630,7 +907,7 @@ def any_lowercase3(s):
     return flag
 </pre>
 
-TODO
+WRONG: This function will raise an Exception if an empty string is passed. It only returns True or False for the last char.
 
 <pre>
 def any_lowercase4(s):
@@ -640,7 +917,7 @@ def any_lowercase4(s):
     return flag
 </pre>
 
-TODO
+CORRECT: This function works correctly, but it loops through the whole string. It could return True when it finds the first character.
 
 <pre>
 def any_lowercase5(s):
@@ -650,7 +927,7 @@ def any_lowercase5(s):
     return True
 </pre>
 
-TODO
+WRONG: This function returns False when it encounters any character that is not lowercase.
 
 ## Exercise 8.5. 
 
@@ -692,10 +969,22 @@ def rotate_word(word, count):
 
 
 ```python
-print('Melon rotated by -10 is', rotate_word('Melon', -10))
+ord('M') - ord('A')
 ```
 
-    Melon rotated by -10 is Cubed
+
+
+
+    12
+
+
+
+
+```python
+print('Melon rotated by -10 is', rotate_word('Melon', 26))
+```
+
+    Melon rotated by -10 is Melon
 
 
 
@@ -747,12 +1036,13 @@ def nested_sum(t):
 
 
 ```python
-t = [[1,[2, 3]], 'pipo', 3, [4, [5, [6, 7]]]]
+t1 = [[1,[2, 3]], 'pipo', 3, [4, [5, [6, 7]]]]
+t2 = [[1 ,2, 3], [4,5], [6, 7]]
 ```
 
 
 ```python
-nested_sum(t)
+nested_sum(t1)
 ```
 
 
@@ -774,23 +1064,32 @@ Write a function called cumsum that takes a list of numbers and returns the cumu
 
 
 ```python
+# The difficult version ...
 def cumsum(t):
     retList = []
     for i in range(len(t)):
-        print(t[:i+1])
+        #print(t[:i+1])
         retList.append(sum(t[:i+1]))
     return retList
 ```
 
 
 ```python
-cumsum([1, 2, 3])
+# The simple version, the sum of the previous element can be re-used.
+def cumsum(t):
+    retList=[]
+    total=0
+    for val in t:
+        total+=val
+        retList.append(total)
+    return retList
+
 ```
 
-    [1]
-    [1, 2]
-    [1, 2, 3]
 
+```python
+cumsum([1, 2, 3])
+```
 
 
 
@@ -903,13 +1202,13 @@ def is_sorted(t):
 
 
 ```python
-is_sorted([1, 2, 3])
+is_sorted(['b', 'a', 'c'])
 ```
 
 
 
 
-    True
+    False
 
 
 
@@ -925,7 +1224,7 @@ def is_anagram(s1, s2):
 
 
 ```python
-is_anagram('Pipo', 'Opip')
+is_anagram('Pipo', 'OPIP')
 ```
 
 
@@ -951,27 +1250,49 @@ def has_duplicates(t):
 
 
 ```python
-has_duplicates([1, 2, 3, 3])
+def has_duplicates(t):
+    for elem in t:
+        if t.count(elem) > 1:
+            return True
+    return False
 ```
 
 
+```python
+def has_duplicates(t):
+    for i in range(0, len(t)-2):
+        if t[i] in t[i+1:]:
+            return True
+    return False #
+```
 
 
-    True
+```python
+t1 = [1, 2, 3, 4]
+i = 3
+print(t1[4:])
+```
 
+    []
 
 
 ## 11.1
 
 Write a function that reads the words in words.txt and stores them as keys in a dictionary
 
+https://greenteapress.com/thinkpython2/code/words.txt
+
+
+
 
 ```python
 def read_words():
-    wordlist = {}
+    wordlist = dict()
+    count = 0
     with open('words.txt', 'r') as file_in:
         for line in file_in:
-            wordlist[line.strip()] = None
+            count += 1
+            wordlist[line.strip()] = count
     return wordlist
 ```
 
@@ -995,6 +1316,290 @@ def find_rotate_pairs(wordlist):
                 print(key, i, rotated)
 
 ```
+
+
+```python
+#find_rotate_pairs(wordlist)
+```
+
+## Excercise 12.1
+
+Write a function called most_frequent that takes a string and prints the letters in decreasing order of frequency
+
+
+```python
+def histogram(s):
+    d = dict()
+    for c in s:
+        d[c] = d.get(c, 0) + 1
+    print('histogram', d)
+    return d
+```
+
+
+```python
+def invert_dict(d):
+    inverse = dict()
+    for key, val in d.items():
+        inverse[val] = inverse.get(val, [])
+        inverse[val].append(key)
+    print('inverted dict', inverse)
+    return inverse
+```
+
+
+```python
+def most_frequent(word):
+    inverted_histogram = invert_dict(histogram(word))
+    for key in sorted(inverted_histogram, reverse=True):
+        print(key, ', '.join(inverted_histogram[key]))
+```
+
+
+```python
+most_frequent('hottentottententententoonstelling')
+```
+
+    histogram {'h': 1, 'o': 4, 't': 10, 'e': 6, 'n': 7, 's': 1, 'l': 2, 'i': 1, 'g': 1}
+    inverted dict {1: ['h', 's', 'i', 'g'], 4: ['o'], 10: ['t'], 6: ['e'], 7: ['n'], 2: ['l']}
+    10 t
+    7 n
+    6 e
+    4 o
+    2 l
+    1 h, s, i, g
+
+
+## Excercise 12.2
+
+Write a program that reads a word list and prints all the sets of words that are anagrams
+
+
+```python
+def is_anagram(s1, s2):
+    return sorted(s1.lower()) == sorted(s2.lower())
+```
+
+
+```python
+def list_anagrams(wordlist):
+    myDict = {}
+    for word in wordlist:
+        key = ''.join(sorted(word.lower()))
+        if key in myDict:
+            myDict[key].append(word)
+        else:
+            myDict[key] = [word]
+    for key, item in myDict.items():
+        if len(item) > 1:
+            print(key, item)
+```
+
+
+```python
+#list_anagrams(read_words())
+```
+
+* Modify the program so that it prints the longest list of anagrams first
+
+
+```python
+def list_anagrams_sorted(wordlist):
+    myDict = {}
+    maxCount = 0
+    for word in wordlist:
+        key = ''.join(sorted(word.lower()))
+        if key in myDict:
+            myDict[key]['words'].append(word)
+            myDict[key]['count']+=1
+            maxCount = max(myDict[key]['count'], maxCount)
+        else:
+            myDict[key] = {'count': 1, 'words': [word]}
+    for i in range(maxCount, 1, -1):
+        for item in myDict.values():
+            if item['count'] == i:
+                print(i, item['words'])         
+```
+
+
+```python
+#list_anagrams_sorted(read_words())
+```
+
+* In scrabble, a "bingo" is when you play all seven tiles in your rack, along with a letter on the board, to form an eight character word. What collection of eight letters forms the most possible bingo's?
+
+
+```python
+def list_anagrams_bingos(wordlist):
+    myDict = {}
+    maxCount = 0
+    for word in wordlist:
+        if len(word) != 8:
+            continue
+        key = ''.join(sorted(word.lower()))
+        if key in myDict:
+            myDict[key]['words'].append(word)
+            myDict[key]['count']+=1
+            maxCount = max(myDict[key]['count'], maxCount)
+        else:
+            myDict[key] = {'count': 1, 'words': [word]}
+    for item in myDict.values():
+        if item['count'] == maxCount:
+            print(item['words'])
+```
+
+
+```python
+list_anagrams_bingos(read_words())
+```
+
+    ['angriest', 'astringe', 'ganister', 'gantries', 'granites', 'ingrates', 'rangiest']
+
+
+## Casestudy Chapter 13
+
+TODO
+
+## Exercise 14.1
+
+Write a function called sed that takes as arguments a pattern, a replacement string, and two filenames; it should read the first file and write the content to thesecond file (creating it if neccesary). If the pattern string appears anywhere in the file it should be replaced with the replacement string.
+
+
+```python
+def sed(pattern, replacement, inputfile, outputfile):
+    try:
+        with open(inputfile, 'r') as fin, open(outputfile, 'w') as fout:
+            for line in fin:
+                fout.write(line.replace(pattern, replacement))
+    except Exception as ex:
+        print('ERROR: %s' % ex)
+```
+
+
+```python
+sed('some', 'pipo', 'sedrepl.txt', 'pipo.txt')
+```
+
+## Exercise 17.2
+
+
+```python
+class Bad_Kangaroo():
+    def __init__(self, name, content=[]):
+        self.name = name
+        self.pouch = content
+        
+    def put_in_pouch(self, item):
+        self.pouch.append(item)
+
+    def __str__(self):
+        return '%s: %s' % (
+            self.name, 
+            ', '.join([str(o) for o in self.pouch]) or 'empty')
+```
+
+
+```python
+kanga = Bad_Kangaroo('kanga')
+```
+
+
+```python
+roo = Bad_Kangaroo('roo')
+```
+
+
+```python
+kanga.put_in_pouch(roo)
+```
+
+
+```python
+print(roo) # Recursion error
+```
+
+
+    ---------------------------------------------------------------------------
+
+    RecursionError                            Traceback (most recent call last)
+
+    <ipython-input-207-6b7caac190c8> in <module>
+    ----> 1 print(roo)
+    
+
+    <ipython-input-203-593e8fdfe4af> in __str__(self)
+         10         return '%s: %s' % (
+         11             self.name,
+    ---> 12             ', '.join([str(o) for o in self.pouch]) or 'empty')
+    
+
+    <ipython-input-203-593e8fdfe4af> in <listcomp>(.0)
+         10         return '%s: %s' % (
+         11             self.name,
+    ---> 12             ', '.join([str(o) for o in self.pouch]) or 'empty')
+    
+
+    ... last 2 frames repeated, from the frame below ...
+
+
+    <ipython-input-203-593e8fdfe4af> in __str__(self)
+         10         return '%s: %s' % (
+         11             self.name,
+    ---> 12             ', '.join([str(o) for o in self.pouch]) or 'empty')
+    
+
+    RecursionError: maximum recursion depth exceeded while getting the str of an object
+
+
+
+```python
+class Kangaroo():
+    def __init__(self, name, content=None):
+        self.name = name
+        if content:
+            self.pouch = content
+        else:
+            self.pouch = []
+        
+    def put_in_pouch(self, item):
+        self.pouch.append(item)
+
+    def __str__(self):
+        return '%s: %s' % (
+            self.name, 
+            ', '.join([str(o) for o in self.pouch]) or 'empty')
+```
+
+
+```python
+kanga = Kangaroo('Kanga')
+```
+
+
+```python
+roo = Kangaroo('Roo')
+```
+
+
+```python
+kanga.put_in_pouch(roo)
+```
+
+
+```python
+print(roo)
+```
+
+    Roo: empty
+
+
+
+```python
+print(kanga)
+```
+
+    Kanga: Roo: empty
+
 
 
 ```python
